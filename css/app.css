@@ -7,6 +7,16 @@ body {
   font-family: "Raleway", Georgia, Serif;
 }
 
+#analyser {
+	padding: 3em;
+	width: 100%;
+	height: 5em;
+	background: #eee;
+	float: left;
+}
+
+
+
 /* apply italic and pointer on hovered rows*/
 .clickable:hover {
 	cursor: pointer;
@@ -36,7 +46,7 @@ body {
 
 /* pad the two divs on top of screen*/
 .logo, .userInput  {
-	padding: 4em;
+	padding: 2em;
 }
 
 /* align logo on top left*/
