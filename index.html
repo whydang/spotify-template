@@ -67,21 +67,23 @@
 							<a href="" ng-click='sortType="popularity"'>Popularity</a>
 						</td>
 					</tr>
-
-					<tbody>
-						<i class="fa fa-play" ng-show='currentSong'></i>
-						<tr ng-repeat="track in tracks | orderBy: sortType | filter: search" class='' ng-click="play(track.preview_url)">
-							<td>
-								{{track.name}}
-							</td>
-							<td>{{track.artists[0].name}}</td>
-							<td>{{track.popularity}}</td>
-						</tr>
-
-					</tbody>
-
-
 				</thead>
+
+				<tbody>
+					<tr ng-repeat="track in tracks | orderBy: sortType | filter: search" ng-click="play(track.preview_url)">
+
+						<td>
+							<i class="fa fa-play" ng-show='displayIcon(track.preview_url)'></i>
+							{{track.name}}
+						</td>
+						<td>{{track.artists[0].name}}</td>
+						<td>{{track.popularity}}</td>
+					</tr>
+
+				</tbody>
+
+
+				
 			</table>
 			<!-- <ul>
 				<li ng-repeat="track in tracks" class="" ng-click="play(track.preview_url)" title="{{track.name}}">

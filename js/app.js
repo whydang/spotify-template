@@ -26,6 +26,10 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
       $scope.currentSong = song
     }
   }
+
+  $scope.displayIcon = function(track) {
+    return ($scope.currentSong == track);
+  }
 })
 
 // Add tool tips to anything with a title property
