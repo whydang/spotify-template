@@ -1,37 +1,59 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,300);
 
-
-
+/* set default values of body html */
 body {
   padding:10px;
-  font-size: 20px;
+  font-size: 18px;
+  font-family: "Raleway", Georgia, Serif;
 }
 
+/* apply italic and pointer on hovered rows*/
+.clickable:hover {
+	cursor: pointer;
+	font-style: italic;
+}
+
+/* resize error message*/
+.error {
+	font-size: 15px;
+}
+
+/* size table labels and bold them*/
+.labels {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.volume-ctrl {
+	width: 100%;
+	text-align: center;
+}
+
+.volume-ctrl i {
+	font-size: 2em;
+	padding: 1em;
+}
+
+/* pad the two divs on top of screen*/
 .logo, .userInput  {
 	padding: 4em;
 }
 
+/* align logo on top left*/
 .logo {
+	text-align: center;
 	background-color: white;
 }
 
+/* border album image if any with fixed height and padding*/
+.album-img {
+	padding:10px;
+  	border:1px solid black;
+	height: 350px;
+}
+
+/* push down the user input bar*/
 .userInput {
 	margin-top: 5em;
 
 }
-
-/* for animation
-.sample-show-hide {
-  padding:10px;
-  border:1px solid black;
-  background:white;
-}
-
-.sample-show-hide {
-  -webkit-transition:all linear 0.5s;
-  transition:all linear 0.5s;
-}
-
-.sample-show-hide.ng-hide {
-  opacity:0;
-}
-*/ 

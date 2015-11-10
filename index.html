@@ -1,98 +1,97 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Spotify Challenge</title>
-	
-	<!-- Include libraries -->
-	<script src="https://code.jquery.com/jquery.min.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
-	
-	<!-- Read scripts -->
-	<script src="js/app.js"></script>
-	<link href="css/app.css" type="text/css" rel="stylesheet"/>	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-	
-</head>
-
-<body>
-
-	
-	<!-- Initiate app -->
-	<div ng-app="myApp" ng-controller="myCtrl" class='container'>
-		<!-- Form -->
-		<div class='row'>
-			<div class='container col-md-6 logo'>
-				<img src="img/spotify-logo.png" alt="spotify">
-
-			</div>
-
-			<form name="songForm" class='col-md-6 userInput'>
-				<div class="form-group">
-					<label>Spotify Search:</label>
-					<input name="search" placeholder="Enter search here..." ng-model="track" class="form-control" required>
-					</input>
-					<span style="color:red" ng-show="songForm.search.$dirty && songForm.search.$invalid">
-						<span ng-show="songForm.search.$error.required">Input is required.</span>
-					</span>
-				</div>
-
-				<div class="form-group">
-					<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getSongs()" type="submit">Submit</button>
-				</div>
-			</form>
-		</div>
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Spotify Challenge</title>
 		
-		<!-- Results -->
-		<div class="container">
-			<div class="help-block">
-				<span ng-show="tracks.length > 0"></span>
-				<span ng-show="currentSong && !audioObject.paused"></span>
+		<!-- Include libraries -->
+		<script src="https://code.jquery.com/jquery.min.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+		
+		<!-- Read scripts -->
+		<script src="js/app.js"></script>
+		<link href="css/app.css" type="text/css" rel="stylesheet"/>	
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		
+	</head>
+
+	<body>
+
+		
+		<!-- initiates the application -->
+		<div ng-app="myApp" ng-controller="myCtrl" class='container'>
+			<!-- create the form to be filled out by client -->
+			<div class='row'>
+				<div class='container col-md-6 logo'>
+					<img class='album-img' ng-src="{{displayImage}}" alt="spotify">
+
+				</div>
+
+				<form name="songForm" class='col-md-6 userInput'>
+					<div class="form-group">
+						<label class='labels'>Spotify Search:</label>
+						<input name="search" placeholder="Enter search here..." ng-model="track" class="form-control" required>
+						</input>
+						<span style="color:red" ng-show="songForm.search.$dirty && songForm.search.$invalid">
+							<span class='error' ng-show="songForm.search.$error.required">Input is required.</span>
+						</span>
+					</div>
+
+					<div class="form-group">
+						<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getSongs()" type="submit">Submit</button>
+					</div>
+				</form>
+			</div>
+			
+			<!-- displays the results -->
+			<div class="container">
+				<div class="volume-ctrl help-block">
+					<span ng-show="tracks.length > 0">
+						<i class="fa fa-volume-off"></i>
+						<i class="fa fa-volume-down"></i>
+						<i class="fa fa-volume-up"></i>
+
+					</span>
+					<span ng-show="currentSong && !audioObject.paused"></span>
+				</div>
+
+				<!-- creates table for all searched results-->
+				<table class="table table-hover" ng-show='submission'>
+					<thead>
+						<tr>
+							<td>
+								<a class='labels' href="" ng-click='sortType="track.name"'>Song</a>
+							</td>
+							<td>
+								<a class='labels' href="" ng-click='sortType="track.artists[0].name"'>Artist</a>
+							</td>
+							<td>
+								<a class='labels' href="" ng-click='sortType="popularity"'>Popularity</a>
+							</td>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr class='clickable' ng-repeat="track in tracks | orderBy: sortType | filter: search" ng-click="play(track)">
+
+							<td>
+								<i class="fa fa-play" ng-show='displayIcon(track)'></i>
+								{{track.name}}
+							</td>
+							<td>{{track.artists[0].name}}</td>
+							<td>{{track.popularity}}</td>
+						</tr>
+
+					</tbody>	
+				</table>			
 			</div>
 
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<td>
-							<a href="" ng-click='sortType="track.name"'>Song</a>
-						</td>
-						<td>
-							<a href="" ng-click='sortType="track.artists[0].name"'>Artist</a>
-						</td>
-						<td>
-							<a href="" ng-click='sortType="popularity"'>Popularity</a>
-						</td>
-					</tr>
-				</thead>
-
-				<tbody>
-					<tr ng-repeat="track in tracks | orderBy: sortType | filter: search" ng-click="play(track.preview_url)">
-
-						<td>
-							<i class="fa fa-play" ng-show='displayIcon(track.preview_url)'></i>
-							{{track.name}}
-						</td>
-						<td>{{track.artists[0].name}}</td>
-						<td>{{track.popularity}}</td>
-					</tr>
-
-				</tbody>
-
-
-				
-			</table>
-			<!-- <ul>
-				<li ng-repeat="track in tracks" class="" ng-click="play(track.preview_url)" title="{{track.name}}">
-					{{track.name + ', by ' + track.artists[0].name}}
-				</li>
-			</ul> -->			
 		</div>
 
-	</div>
-
-</body>
+	</body>
 </html>
