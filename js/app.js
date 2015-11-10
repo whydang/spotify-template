@@ -86,17 +86,25 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
 
   var SAMPLES = 150;
   var BAR_WIDTH = 3;
+
   function frameLooper() {
+    var my_gradient;
     window.requestAnimationFrame(frameLooper);
     fbc_array = new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteFrequencyData(fbc_array);
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-    ctx.fillStyle = '#0066FF'; // Color of the bars
+    //ctx.fillStyle = '#0066FF'; // Color of the bars
     bars = SAMPLES;
     for (var i = 0; i < bars; i++) {
       bar_x = i * BAR_WIDTH;
       bar_width = BAR_WIDTH;
       bar_height = -(fbc_array[i] / 2);
+
+      my_gradient = ctx.createLinearGradient(bar_x, canvas.height , bar_x, bar_height);
+      my_gradient.addColorStop(0, "#0066FF");
+      my_gradient.addColorStop(1,"white");
+      ctx.fillStyle = my_gradient;
+
       //  fillRect( x, y, width, height ) // Explanation of the parameters below
       ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
     }

@@ -16,7 +16,7 @@ body {
 	padding: 0.25em;
 	width: 500px;
 	height: 100px;
-	background: #eee;
+	background: linear-gradient(white, #eee);
 }
 
 /* apply italic and pointer on hovered rows*/
