@@ -45,13 +45,14 @@
 					</div>
 
 					<div class="form-group">
-						<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getSongs()" type="submit">Submit</button>
+						<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getSongs()" type="submit" scroll-on-click href='#results'>Submit
+						</button>
 					</div>
 				</form>
 			</div>
 			
 			<!-- displays the results -->
-			<div class="container">
+			<div id='results' class="container">
 				<div class="volume-ctrl">
 					<span ng-show="tracks.length > 0">
 						<i class="fa fa-volume-off clickable" ng-click='volumeChange(0)'></i>
